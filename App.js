@@ -31,23 +31,25 @@ setSave('')
   }
   return (
     <View style={styles.container}>
+    <Text style={styles.txt}>Discount App</Text>
       <View style={styles.innerContainer}>
-        <View>
-          <Text>Original Price</Text>
-          <TextInput onChangeText={(txt)=>setT1(txt)} style={styles.TextInputStyle} placeholder="Enter Original Price"/>
+
+        <View style={styles.midcontainer}>
+          <Text style={{color:'magenta',marginLeft:-16}}>Original Price</Text>
+          <TextInput onChangeText={(txt)=>setT1(txt)} style={[styles.TextInputStyle,{marginLeft:15}]} placeholder="Enter Original Price" placeholderTextColor='#ff6347'/>
       
         </View>
-        <View>
-          <Text>Discount: </Text>
-          <TextInput onChangeText={setPrice} style={styles.TextInputStyle} placeholder="Enter Discount Percentage"/>
+        <View style={styles.midcontainer}>
+          <Text style={{color:'magenta'}}>Discount: </Text>
+          <TextInput onChangeText={setPrice} style={styles.TextInputStyle} placeholder="Enter Discount Percentage" placeholderTextColor='#ff6347'/>
      
         </View>
-        <View>
-          <Text>You Save</Text>
+        <View style={styles.midcontainer}>
+          <Text style={{color:'magenta'}}>You Save:</Text>
           <TextInput style={styles.TextInputStyle} value={save}/>
         </View>
-        <View>
-          <Text>New Price</Text>
+        <View style={styles.midcontainer}>
+          <Text style={{color:'magenta'}}>New Price:</Text>
           <TextInput style={styles.TextInputStyle}  value={original}/>
         </View>
      
@@ -59,14 +61,22 @@ setSave('')
 }
 
 const styles = StyleSheet.create({
+  txt:{
+    fontSize:36,
+    position:'absolute',
+    top:'20%',
+    color:'magenta',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#faf0e6',
     alignItems: 'center',
     justifyContent: 'center',
+    
   },
   innerContainer:{
-    flexDirection:'column'
+    flexDirection:'column',
+    marginTop:50
   },
   TextInputStyle:{
     borderBottomColor:'#ff1493',
@@ -74,7 +84,15 @@ const styles = StyleSheet.create({
     borderTopWidth:0,
     borderRightWidth:0,
     borderLeftWidth:0,
-    width:'100%',
-    height: 60
+    width:'60%',
+    height: 40,
+    paddingTop:13,
+    marginLeft:15,
   },
+  midcontainer:{
+    flexDirection:"row",
+    width:'100%',
+    justifyContent:'center',
+    alignItems:'flex-end'
+  }
 });
