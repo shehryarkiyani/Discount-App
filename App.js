@@ -6,6 +6,8 @@ export default function App() {
   const[t2,setT2]=useState('')
   const[save,setSave]=useState('')
   const[original,setOriginal]=useState('')
+  const[prErr,setErr]=useState('')
+  const[disErr,setDErr]=useState('')
   const setPrice=(txt)=>{
 setT2(txt)
 
@@ -15,18 +17,34 @@ setT2(txt)
     calculate()
   },[t2,t1]);
   const calculate=()=>{
-    let val1=parseInt(t1)
-    let val2=parseInt(t2)
-    let newprice=(val1*val2)/100
-    let saveprice=val1-newprice
-    if(t2===''|| t1===''){
-setSave('')
-    setOriginal('')
+     let val1=parseInt(t1)
+    if(isNaN(t1)|| val1<0){
+      setErr("Number Should be positive integer")
     }else{
-      setSave(newprice.toString())
-    setOriginal(saveprice.toString())
-      console.log(saveprice)
+      setErr('')
+     
+      let val2=parseInt(t2)
+      if(val2>0){
+        if(val2<=100){
+          setDErr('')
+          let newprice=(val1*val2)/100
+          let saveprice=val1-newprice
+          if(t2===''|| t1===''){
+      setSave('')
+          setOriginal('')
+          }else{
+            setSave(newprice.toString())
+          setOriginal(saveprice.toString())
+            console.log(saveprice)
+          }
+        }else{
+          setDErr("Discount should be less than 100")
+        }
+       
+      }
+      
     }
+    
     
   }
   return (
@@ -39,14 +57,16 @@ setSave('')
           <TextInput onChangeText={(txt)=>setT1(txt)} style={[styles.TextInputStyle,{marginLeft:15}]} placeholder="Enter Original Price" placeholderTextColor='#ff6347'/>
       
         </View>
+        <Text style={[prErr===''?{display:'hide'}:styles.priceErr]}>{prErr}</Text>
         <View style={styles.midcontainer}>
           <Text style={{color:'magenta'}}>Discount: </Text>
           <TextInput onChangeText={setPrice} style={styles.TextInputStyle} placeholder="Enter Discount Percentage" placeholderTextColor='#ff6347'/>
      
         </View>
+    <Text style={[disErr===''?{display:'hide'}:styles.discountErr]}>{disErr}</Text>
         <View style={styles.midcontainer}>
-          <Text style={{color:'magenta'}}>You Save:</Text>
-          <TextInput style={styles.TextInputStyle} value={save}/>
+          <Text style={{color:'magenta',marginLeft:-16}}>Amount Save:</Text>
+          <TextInput style={[styles.TextInputStyle,{marginLeft:12}]} value={save}/>
         </View>
         <View style={styles.midcontainer}>
           <Text style={{color:'magenta'}}>New Price:</Text>
@@ -61,6 +81,12 @@ setSave('')
 }
 
 const styles = StyleSheet.create({
+  priceErr:{
+color:'red'
+  },
+  discountErr:{
+color:'red'
+  },
   txt:{
     fontSize:36,
     position:'absolute',
