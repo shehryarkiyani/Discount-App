@@ -13,18 +13,18 @@ setT2(txt)
   useEffect(() => {
     
     calculate()
-  },[t2]);
+  },[t2,t1]);
   const calculate=()=>{
     let val1=parseInt(t1)
     let val2=parseInt(t2)
     let newprice=(val1*val2)/100
     let saveprice=val1-newprice
-    if(t2===''){
+    if(t2===''|| t1===''){
 setSave('')
     setOriginal('')
     }else{
-      setSave(saveprice.toString())
-    setOriginal(newprice.toString())
+      setSave(newprice.toString())
+    setOriginal(saveprice.toString())
       console.log(saveprice)
     }
     
