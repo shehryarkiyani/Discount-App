@@ -2,6 +2,12 @@ import React ,{useState,useEffect}from 'react';
 import { StyleSheet, Text, View,TextInput } from 'react-native';
 import Constants from 'expo-constants';
 
+// You can import from local files
+import AssetExample from './components/AssetExample';
+
+// or any pure javascript modules available in npm
+import { Card } from 'react-native-paper';
+
 export default function App() {
   const[t1,setT1]=useState('')
   const[t2,setT2]=useState('')
@@ -19,14 +25,25 @@ setT2(txt)
   },[t2,t1]);
   const calculate=()=>{
      let val1=parseInt(t1)
+      let val2=parseInt(t2)
     if(isNaN(t1)|| val1<0){
       setErr("Number Should be positive integer")
        setSave('')
           setOriginal('')
+          if(val2<=100 && val2>0 ){
+            setDErr('')
+          }else{
+            if(t2==''){
+              setDErr('')
+            }else{
+ setDErr("Discount should be less than 100")
+            }
+            
+          }
     }else{
       setErr('')
      
-      let val2=parseInt(t2)
+     
       if(val2>0){
         if(val2<=100){
           setDErr('')
@@ -76,6 +93,10 @@ setT2(txt)
           <Text style={{color:'magenta'}}>New Price:</Text>
           <TextInput style={styles.TextInputStyle}  value={original}/>
         </View>
+     
+ 
+      
+      
       </View>
     </View>
   );
